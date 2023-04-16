@@ -2,19 +2,34 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class Character implements Contract {
-    ArrayList<String> inventory;
+    public ArrayList<String> inventory;
     boolean north = true;
     boolean south = true;
-    Integer location=0;
-    Integer height=5;
-    Integer health=10;
+    public Integer location=0;
+    public Integer height=5;
+    public Integer health=10;
     Hashtable<String,String> actions;
-    ArrayList<String> lastAction;
+    public ArrayList<String> lastAction;
     
     public Character(){
 
     }
     
+    public Integer getLoc(){
+        return location;
+    }
+    public Integer getHeight(){
+        return height;
+    }
+    public Integer getHealth(){
+        return health;
+    }
+    public void printInventory(){
+        System.out.println(inventory);
+    }
+    public void printActions(){
+        System.out.println(lastAction);
+    }
     public void grab(String item){
         inventory.add(item);
         actions.put("grab", item);
@@ -23,11 +38,16 @@ public class Character implements Contract {
     }
 
     public String drop(String item){
-        inventory.remove(item);
-        actions.put("drop", item);
-        lastAction.add("grab");
-        lastAction.add(item);
-        return item+"dropped";
+        if(inventory.contains(item)==true){
+            inventory.remove(item);
+            actions.put("drop", item);
+            lastAction.add("grab");
+            lastAction.add(item);
+            return item+"dropped";
+        }else{
+            throw new RuntimeException("you arent carrying this item");
+        }
+        
     }
 
     public void examine(String item){
@@ -150,4 +170,17 @@ public class Character implements Contract {
         }
 
     }
+
+
+    public static void main(String[] args) {
+       Character you= new Character();
+       you.walk("north");
+       you.grab("apple");
+       you.drop("apple");
+       you.grow();
+       you.shrink();
+       System.out.println(you.getLoc());
+        
+    }
+    
 }
