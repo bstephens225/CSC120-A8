@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Hashtable;
+
 public class Character implements Contract {
     ArrayList<String> inventory;
     boolean north = true;
@@ -8,7 +9,8 @@ public class Character implements Contract {
     Integer height=5;
     Integer health=10;
     Hashtable<String,String> actions;
-
+    ArrayList<String> lastAction;
+    
     public Character(){
 
     }
@@ -16,11 +18,15 @@ public class Character implements Contract {
     public void grab(String item){
         inventory.add(item);
         actions.put("grab", item);
+        lastAction.add("grab");
+        lastAction.add(item);
     }
 
     public String drop(String item){
         inventory.remove(item);
         actions.put("drop", item);
+        lastAction.add("grab");
+        lastAction.add(item);
         return item+"dropped";
     }
 
@@ -29,6 +35,8 @@ public class Character implements Contract {
     }
 
     public void use(String item){
+        lastAction.add("use");
+        lastAction.add(item);
         actions.put("use", item);
     }
 
@@ -51,6 +59,8 @@ public class Character implements Contract {
             if (north==true){
                 changeLocation(direction);
                 actions.put("walk", direction);
+                lastAction.add("walk");
+                lastAction.add(direction);
                 return true;
             }else{
                 return false;
@@ -59,6 +69,8 @@ public class Character implements Contract {
             if (south==true){
                 changeLocation(direction);
                 actions.put("walk", direction);
+                lastAction.add("walk");
+                lastAction.add(direction);
                 return true;
             }else{
                 return false;
@@ -77,12 +89,16 @@ public class Character implements Contract {
     public Number shrink(){
         height=height/2;
         actions.put("shrink", "");
+        lastAction.add("shrink");
+        lastAction.add("null");
         return height;
     }
 
     public Number grow(){
         height=height*2;
-        actions.put("shrink", "");
+        actions.put("grow", "");
+        lastAction.add("grow");
+        lastAction.add("null");
         return height;
     }
 
@@ -91,7 +107,47 @@ public class Character implements Contract {
             health++;
         }
         actions.put("rest", "");
+        lastAction.add("rest");
+        lastAction.add("null");
     }
 
-    public void undo(){}
+    public void undo(){
+        int last=lastAction.size();
+        if (lastAction.get(last-1)=="walk"){
+            if (lastAction.get(last)=="north"){
+                lastAction.remove(last);
+                lastAction.remove(last-1);
+                walk("south");
+            }else{
+                lastAction.remove(last);
+                lastAction.remove(last-1);
+                walk("north");
+            }
+
+        }else if (lastAction.get(last-1)=="shrink"){
+            lastAction.remove(last);
+            lastAction.remove(last-1);
+            grow();
+        }else if(lastAction.get(last-1)=="grow"){
+            lastAction.remove(last);
+            lastAction.remove(last-1);
+            shrink();
+        }else if(lastAction.get(last-1)=="grab"){
+            drop(lastAction.get(last));
+            lastAction.remove(last);
+            lastAction.remove(last-1);
+        }else if (lastAction.get(last-1)=="drop"){
+            grab(lastAction.get(last));
+            lastAction.remove(last);
+            lastAction.remove(last-1);
+        }else if (lastAction.get(last-1)=="use"){
+            lastAction.remove(last);
+            lastAction.remove(last-1);
+        }else if (lastAction.get(last-1)=="rest"){
+            health--;
+            lastAction.remove(last);
+            lastAction.remove(last-1);
+        }
+
+    }
 }
