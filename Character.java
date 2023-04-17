@@ -1,3 +1,7 @@
+/** Cafe class
+@author bethany stephens
+*/
+
 import java.util.ArrayList;
 
 

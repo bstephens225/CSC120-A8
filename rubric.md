@@ -10,38 +10,38 @@ Listed below are various aspects of the assignment.  When you turn in your work,
 
 ## Assignment Points:
 
-_____ 10 pts: The class meaningfully implements each of the methods in described in the `Contract` interface:
+___**YES**__ 10 pts: The class meaningfully implements each of the methods in described in the `Contract` interface:
 
-      _____ `void grab(String item);`
-      _____ `String drop(String item);`
-      _____ `void examine(String item);`
-      _____ `void use(String item);`
-      _____ `boolean walk(String direction);`
-      _____ `boolean fly(int x, int y);`
-      _____ `Number shrink();`
-      _____ `Number grow();`
-      _____ `void rest();`
-      _____ `void undo();`
+      ___**YES**__ `void grab(String item);`
+      ___**YES**__ `String drop(String item);`
+      ___**YES**__ `void examine(String item);`
+      ___**YES**__ `void use(String item);`
+      ___**YES**__ `boolean walk(String direction);`
+      ___**YES**__ `boolean fly(int x, int y);`
+      ___**YES**__ `Number shrink();`
+      ___**YES**__ `Number grow();`
+      ___**YES**__ `void rest();`
+      ___**YES**__ `void undo();`
 
 
 ## General Items:
 
-_____ 4 pts: Programs compile without errors or warnings
+__**YES**__ 4 pts: Programs compile without errors or warnings
 
-_____ 2 pts: Executes fully & consistently without crashing (exception/freeze)
+__**YES**__ 2 pts: Executes fully & consistently without crashing (exception/freeze)
 
-_____ 2 pt: Complies with style guidelines (missing items 1 pt each):
+___**PART**__ 2 pt: Complies with style guidelines (missing items 1 pt each):
 
-      _____ Classes & class members all have Javadoc header comments
+      ___**PART**__ Classes & class members all have Javadoc header comments
 
-      _____ Clear and consistent indentation of bracketed sections
+      ___**YES**__ Clear and consistent indentation of bracketed sections
 
-      _____ Adheres to Java conventions on naming & capitalization
+      ___**YES**__ Adheres to Java conventions on naming & capitalization
 
-      _____ Methods & variables all have clear and accurate names
+      ___**YES**__ Methods & variables all have clear and accurate names
 
-      _____ Methods avoid confusing side effects
+      __**YES**___ Methods avoid confusing side effects
 
-_____ 1 pt: All required files included with submission (including completed `rubric.md` file)
+__**YES**_ 1 pt: All required files included with submission (including completed `rubric.md` file)
 
-_____ 1 pt: `reflection.md` contains your reflection on the assignment, **including a detailed description of the class you implemented and what it does**
+___**YES**__ 1 pt: `reflection.md` contains your reflection on the assignment, **including a detailed description of the class you implemented and what it does**
