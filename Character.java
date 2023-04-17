@@ -41,7 +41,7 @@ public class Character implements Contract {
         if(inventory.contains(item)==true){
             inventory.remove(item);
             
-            lastAction.add("grab");
+            lastAction.add("drop");
             lastAction.add(item);
             return item+"dropped";
         }else{
@@ -68,9 +68,13 @@ public class Character implements Contract {
         }
         if (location>=5){
             north=false;
+        }else{
+            north=true;
         }
         if (location<=-5){
             south=false;
+        }else{
+            south=true;
         }
     }
 
@@ -125,63 +129,75 @@ public class Character implements Contract {
     public void rest(){
         if (health<10){
             health++;
+            lastAction.add("rest");
+            lastAction.add("yay");
         }
         
         lastAction.add("rest");
-        lastAction.add("null");
+        lastAction.add("nay");
     }
 
     public void undo(){
-        int last=lastAction.size();
+        int last=lastAction.size()-1;
         if (lastAction.get(last-1)=="walk"){
             if (lastAction.get(last)=="north"){
-                lastAction.remove(last);
-                lastAction.remove(last-1);
+                removeIt(last);
                 walk("south");
+                removeIt(last);
             }else{
-                lastAction.remove(last);
-                lastAction.remove(last-1);
+                removeIt(last);
                 walk("north");
+                removeIt(last);
             }
 
         }else if (lastAction.get(last-1)=="shrink"){
-            lastAction.remove(last);
-            lastAction.remove(last-1);
+            removeIt(last);
             grow();
+            removeIt(last);
         }else if(lastAction.get(last-1)=="grow"){
-            lastAction.remove(last);
-            lastAction.remove(last-1);
+            removeIt(last);
             shrink();
+            removeIt(last);
         }else if(lastAction.get(last-1)=="grab"){
             drop(lastAction.get(last));
-            lastAction.remove(last);
-            lastAction.remove(last-1);
+            removeIt(last);
+            removeIt(last);
         }else if (lastAction.get(last-1)=="drop"){
             grab(lastAction.get(last));
-            lastAction.remove(last);
-            lastAction.remove(last-1);
+            removeIt(last);
+            removeIt(last);
         }else if (lastAction.get(last-1)=="use"){
-            lastAction.remove(last);
-            lastAction.remove(last-1);
+            removeIt(last);
         }else if (lastAction.get(last-1)=="rest"){
-            health--;
-            lastAction.remove(last);
-            lastAction.remove(last-1);
+            if(lastAction.get(last-1)=="yay"){
+                health--;
+            }
+            removeIt(last);
         }
 
+    }
+
+    private void removeIt(int last){
+        lastAction.remove(last);
+        lastAction.remove(last-1);
     }
 
 
     public static void main(String[] args) {
 
        Character you= new Character();
-       System.out.println(you.getLoc());
-       //you.walk("north");
-       you.grab("apple");
-       you.drop("apple");
-       you.grow();
-       you.shrink();
-       System.out.println(you.getLoc());
+       System.out.println(you.getHealth());
+        you.rest();
+        you.use("apple");
+        //you.rest();
+       System.out.println(you.getHealth());
+       you.printActions();
+       you.printInventory();
+
+       you.undo();
+       you.printActions();
+       System.out.println(you.getHealth());
+       you.printInventory();
         
     }
     
