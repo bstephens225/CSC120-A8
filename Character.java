@@ -173,8 +173,10 @@ public class Character implements Contract {
 
 
     public static void main(String[] args) {
+
        Character you= new Character();
-       you.walk("north");
+       System.out.println(you.getLoc());
+       //you.walk("north");
        you.grab("apple");
        you.drop("apple");
        you.grow();
