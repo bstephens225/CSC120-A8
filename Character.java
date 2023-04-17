@@ -1,15 +1,15 @@
 import java.util.ArrayList;
-import java.util.Hashtable;
+
 
 public class Character implements Contract {
-    public ArrayList<String> inventory;
+    public ArrayList<String> inventory= new ArrayList<String>();
     boolean north = true;
     boolean south = true;
     public Integer location=0;
     public Integer height=5;
     public Integer health=10;
-    Hashtable<String,String> actions;
-    public ArrayList<String> lastAction;
+
+    public ArrayList<String> lastAction= new ArrayList<String>();
     
     public Character(){
 
@@ -32,7 +32,7 @@ public class Character implements Contract {
     }
     public void grab(String item){
         inventory.add(item);
-        actions.put("grab", item);
+        
         lastAction.add("grab");
         lastAction.add(item);
     }
@@ -40,7 +40,7 @@ public class Character implements Contract {
     public String drop(String item){
         if(inventory.contains(item)==true){
             inventory.remove(item);
-            actions.put("drop", item);
+            
             lastAction.add("grab");
             lastAction.add(item);
             return item+"dropped";
@@ -57,7 +57,7 @@ public class Character implements Contract {
     public void use(String item){
         lastAction.add("use");
         lastAction.add(item);
-        actions.put("use", item);
+        
     }
 
     public void changeLocation(String direction){
@@ -78,7 +78,7 @@ public class Character implements Contract {
         if (direction=="north"){
             if (north==true){
                 changeLocation(direction);
-                actions.put("walk", direction);
+                
                 lastAction.add("walk");
                 lastAction.add(direction);
                 return true;
@@ -88,7 +88,7 @@ public class Character implements Contract {
         }else if (direction=="south"){
             if (south==true){
                 changeLocation(direction);
-                actions.put("walk", direction);
+                
                 lastAction.add("walk");
                 lastAction.add(direction);
                 return true;
@@ -108,7 +108,7 @@ public class Character implements Contract {
 
     public Number shrink(){
         height=height/2;
-        actions.put("shrink", "");
+        
         lastAction.add("shrink");
         lastAction.add("null");
         return height;
@@ -116,7 +116,7 @@ public class Character implements Contract {
 
     public Number grow(){
         height=height*2;
-        actions.put("grow", "");
+        
         lastAction.add("grow");
         lastAction.add("null");
         return height;
@@ -126,7 +126,7 @@ public class Character implements Contract {
         if (health<10){
             health++;
         }
-        actions.put("rest", "");
+        
         lastAction.add("rest");
         lastAction.add("null");
     }
